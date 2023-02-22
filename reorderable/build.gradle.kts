@@ -7,8 +7,8 @@ plugins {
     id("signing")
 }
 
-group = "org.burnoutcrew.composereorderable"
-version = "0.9.7"
+group = "com.whoop.composereorderable"
+version = "0.109.7" // we add 100 to the minor version to avoid conflicts with upstream version
 
 kotlin {
     jvm()
@@ -35,13 +35,13 @@ publishing {
     publications {
         repositories {
             maven {
-                name="oss"
-                val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-                val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots/")
-                url = if (version.toString().endsWith("SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+                name="internal"
+                val releasesRepoUrl = extra.properties.getOrDefault("internalUrl", "") as String
+                val snapshotsRepoUrl = extra.properties.getOrDefault("internalSnapshotUrl", "") as String
+                url = if (version.toString().endsWith("SNAPSHOT")) uri(snapshotsRepoUrl) else uri(releasesRepoUrl)
                 credentials {
-                    username = extra.properties.getOrDefault("ossrh.Username", "") as String
-                    password = extra.properties.getOrDefault("ossrh.Password", "") as String
+                    username = extra.properties.getOrDefault("internalUsername", "") as String
+                    password = extra.properties.getOrDefault("internalPassword", "") as String
                 }
             }
         }
@@ -58,14 +58,14 @@ publishing {
                         url.set("https://opensource.org/licenses/Apache-2.0")
                     }
                 }
-                url.set("https://github.com/aclassen/ComposeReorderable")
+                url.set("https://github.com/WhoopInc/ComposeReorderable")
                 issueManagement {
                     system.set("Github")
-                    url.set("https://github.com/aclassen/ComposeReorderable/issues")
+                    url.set("https://github.com/WhoopInc/ComposeReorderable/issues")
                 }
                 scm {
-                    connection.set("https://github.com/aclassen/ComposeReorderable.git")
-                    url.set("https://github.com/aclassen/ComposeReorderable")
+                    connection.set("https://github.com/WhoopInc/ComposeReorderable.git")
+                    url.set("https://github.com/WhoopInc/ComposeReorderable")
                 }
                 developers {
                     developer {
@@ -79,5 +79,6 @@ publishing {
 }
 
 signing {
+    isRequired = false
     sign(publishing.publications)
 }

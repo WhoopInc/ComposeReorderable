@@ -1,17 +1,24 @@
 # Compose LazyList/Grid reorder
 [![Latest release](https://img.shields.io/github/v/release/aclassen/ComposeReorderable?color=brightgreen&label=latest%20release)](https://github.com/aclassen/ComposeReorderable/releases/latest)
 
-A Jetpack Compose (Android + Desktop) modifier enabling reordering by drag and drop in a LazyList and LazyGrid.
+A Jetpack Compose modifier enabling reordering by drag and drop in a LazyList and LazyGrid.
 
 ![Sample](readme/sample.gif)
 
-## Download
+## WHOOP Fork
 
-```
-dependencies {
-    implementation("org.burnoutcrew.composereorderable:reorderable:<latest_version>")
-}
-```
+This library is forked from Andre Claßen's open source library
+[ComposeReorderable](https://github.com/aclassen/ComposeReorderable).
+
+We are using a custom WHOOP fork so that we can customize the implementation to suit our needs,
+as well as to mitigate risk in case the 3rd party library ever stops being maintained.
+
+The `main` branch is just a copy of the upstream library's `main` branch, while the `whoop` branch
+contains any whoop-specific code. When making whoop-specific changes, you should branch off from
+`whoop` into a new feature branch, and open a PR back onto the `whoop` branch.
+
+### Updating the Fork
+Ask a maintainer for instructions on how to update the fork. We keep these instructions internal.
 
 ## How to use
 
